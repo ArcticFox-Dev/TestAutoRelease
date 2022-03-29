@@ -16,6 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+
     - name: 'Tag Package Manifest'
       uses: ArcticFox-Dev/UpmManifestTools@develop
       with:
@@ -36,6 +41,12 @@ jobs:
         token: ${{ secrets.NPM_TOKEN }}
         registry: ${{ 'http://upm.randhall.net' }}
         package: ${{ './Package/package.json' }}
+
+    - name: 'Commit package change'
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: 'Bumping patch version'
+        commiter_name: 'Publish-And-Merge Action'
 
     - name: 'Push Changes'
       uses: ad-m/github-push-action@master
@@ -60,5 +71,5 @@ jobs:
     - name: 'Delete Release Branch'
       uses: dawidd6/action-delete-branch@v3
       with:
-        branches: ${{ github.ref }}
+        branches: ${{ steps.extract_branch.outputs.branch }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
