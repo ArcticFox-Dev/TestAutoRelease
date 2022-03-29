@@ -45,14 +45,18 @@ jobs:
     - name: 'Commit package change'
       uses: EndBug/add-and-commit@v9
       with:
+        add: './Package/package.json'
         message: 'Bumping patch version'
-        commiter_name: 'Publish-And-Merge Action'
+        committer_name: 'Publish-And-Merge Action'
 
     - name: 'Push Changes'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+
+    - name: 'Checkout Again'
+      uses: actions/checkout@v2
 
     - name: 'Merge to Main'
       uses: devmasx/merge-branch@master
