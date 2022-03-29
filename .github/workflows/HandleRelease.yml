@@ -35,7 +35,7 @@ jobs:
       with:
         token: ${{ secrets.NPM_TOKEN }}
         registry: ${{ 'http://upm.randhall.net' }}
-        package: ${{ './SignalsGenerator_Package/Assets/SignalsGenerator/package.json' }}
+        package: ${{ './Package/package.json' }}
 
     - name: 'Push Changes'
       uses: ad-m/github-push-action@master
