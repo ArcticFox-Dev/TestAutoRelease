@@ -55,9 +55,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
 
-#    - name: 'Checkout Again'
-#      uses: actions/checkout@v2
-
     - name: 'Merge to Main'
       uses: devmasx/merge-branch@master
       with:
@@ -70,11 +67,12 @@ jobs:
       uses: devmasx/merge-branch@master
       with:
         type: now
+        from_branch: ${{ steps.extract_branch.outputs.branch }}
         target_branch: develop
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-#    - name: 'Delete Release Branch'
-#      uses: dawidd6/action-delete-branch@v3
-#      with:
-#        branches: ${{ steps.extract_branch.outputs.branch }}
-#        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'Delete Release Branch'
+      uses: dawidd6/action-delete-branch@v3
+      with:
+        branches: ${{ steps.extract_branch.outputs.branch }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
