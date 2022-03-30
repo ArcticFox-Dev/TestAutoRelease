@@ -1,8 +1,8 @@
 {
   "name": "com.afg.memory",
-  "displayName": "DotNet memory and span",
-  "version": "1.0.0",
-  "unity": "2019.1",
+  "version": "1.0.1",
   "description": "This is the workaround package to bring memory and span into unity",
+  "displayName": "DotNet memory and span",
+  "unity": "2019.1",
   "hideInEditor": false
 }
