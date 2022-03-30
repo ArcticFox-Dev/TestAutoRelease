@@ -20,12 +20,17 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+      
+    - name: Extract release name
+      shell: bash
+      run: echo "##[set-output name=releaseName;]$(echo ${GITHUB_REF#refs/heads/release/})"
+      id: extract_release
 
     - name: 'Tag Package Manifest'
       uses: ArcticFox-Dev/UpmManifestTools@develop
       with:
         dir: ${{ './Package' }}
-        action: 'patch'
+        action: ${{ steps.extract_release.outputs.releaseName }}
 
     - name: 'Publish to UPM'
       uses: actions/setup-node@v1
