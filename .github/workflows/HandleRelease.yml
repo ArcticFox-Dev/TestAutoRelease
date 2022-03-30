@@ -1,5 +1,5 @@
 # The name of the work flow. Badges will use this name
-name: 'Publish Snapshot'
+name: 'Publish Release'
 
 on:
   push:
